@@ -1,144 +1,71 @@
 package net.helloworld.user;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
+
+import net.helloworld.support.JdbcTemplate;
+import net.helloworld.support.RowMapper;
 
 public class UserDAO {
-
-	public Connection getConnection() {
-		
-		String url = "jdbc:mysql://localhost:3306/roamstory_dev?useSSL=false&serverTimezone=UTC"; 
-		String id = "root";   
-		String pw = "password";  
-		
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			return DriverManager.getConnection(url,id,pw); 
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			return null;
-		}
-		
-	}
-
 	public void addUser(User user) throws SQLException {
+
+		JdbcTemplate template = new JdbcTemplate();
 		String sql = "insert into USERS values(?,?,?,?)";
-		
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		try {
-			
-			conn = getConnection();
-			pstmt = getConnection().prepareStatement(sql);
-			pstmt.setString(1,user.getUserId());
-			pstmt.setString(2,user.getPassword());
-			pstmt.setString(3,user.getName());
-			pstmt.setString(4,user.getEmail());
-			
-			pstmt.executeUpdate();
-		} finally {
-			if (pstmt != null) {
-				pstmt.close();
-			}
-			
-			if (conn != null) {
-				conn.close();
-			}
-			
-		}
-		
-		
-		
+		template.executeUpdate(sql, user.getUserId(), user.getPassword(), user.getName(), user.getEmail());
 	}
 
 	public User findByUserId(String userId) throws SQLException {
-		
-		String sql = "select * from USERS where userId = ?"; 
-		
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		try {
-			conn = getConnection();
-			pstmt = getConnection().prepareStatement(sql);
-			pstmt.setString(1,userId);
-			
-			rs = pstmt.executeQuery();
-			
-			if (!rs.next()) {
-				return null;
+
+		RowMapper<User> rm = new RowMapper<User>() {
+
+			@Override
+			public User mapRow(ResultSet rs) throws SQLException {
+				return new User(rs.getString("userId"), rs.getString("password"), rs.getString("name"),
+						rs.getString("email"));
 			}
-				return new User(rs.getString("userId"),rs.getString("password"),rs.getString("name"),rs.getString("email"));
-				
-		} finally {
-			if (rs != null) {
-				rs.close();
-			}
-			if (pstmt != null) {
-				pstmt.close();
-			}
-			
-			if (conn != null) {
-				conn.close();
-			}
-		}
-		
+		};
+
+		JdbcTemplate template = new JdbcTemplate();
+		String sql = "select * from Users where userId = ?";
+
+		return template.executeQuery(sql, rm, userId);
+
 	}
 
 	public void removeUser(String userId) throws SQLException {
+
+		JdbcTemplate template = new JdbcTemplate();
+
 		String sql = "delete from Users where userId = ?";
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		try {
-			conn = getConnection();
-			pstmt = getConnection().prepareStatement(sql);
-			pstmt.setString(1,userId);
-			pstmt.executeUpdate();
-				
-		} finally {
-			if (pstmt != null) {
-				pstmt.close();
-			}
-			
-			if (conn != null) {
-				conn.close();
-			}
-		}
-		
-		
-		
+
+		template.executeUpdate(sql, userId);
 	}
 
 	public void updateUser(User user) throws SQLException {
+
+		JdbcTemplate template = new JdbcTemplate();
+
 		String sql = "update USERS set password= ?, name= ?, email= ? where userId = ?";
-		
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		try {
-			conn = getConnection();
-			pstmt = getConnection().prepareStatement(sql);
-			
-			pstmt.setString(1,user.getPassword());
-			pstmt.setString(2,user.getName());
-			pstmt.setString(3,user.getEmail());
-			pstmt.setString(4,user.getUserId());
-			
-			pstmt.executeUpdate();
-				
-		} finally {
-			if (pstmt != null) {
-				pstmt.close();
+
+		template.executeUpdate(sql, user.getUserId(), user.getPassword(), user.getName(), user.getEmail());
+
+	}
+
+	public List<User> findUsers() throws SQLException {
+		RowMapper<User> rm = new RowMapper<User>() {
+
+			@Override
+			public User mapRow(ResultSet rs) throws SQLException {
+				return new User(rs.getString("userId"), rs.getString("password"), rs.getString("name"),
+						rs.getString("email"));
 			}
-			
-			if (conn != null) {
-				conn.close();
-			}
-		}
-		
-		
+		};
+
+		JdbcTemplate template = new JdbcTemplate();
+		String sql = "select * from Users";
+
+		return template.list(sql, rm);
 	}
 
 }

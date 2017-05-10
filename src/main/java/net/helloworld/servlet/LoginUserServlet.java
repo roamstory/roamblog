@@ -1,4 +1,4 @@
-package net.helloworld.user;
+package net.helloworld.servlet;
 
 import java.io.IOException;
 
@@ -10,8 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import net.helloworld.exception.PasswordMismatchException;
+import net.helloworld.exception.UserNotFoundException;
+import net.helloworld.user.User;
+
 @WebServlet("/users/login")
-public class LoginServlet extends HttpServlet {
+public class LoginUserServlet extends HttpServlet {
 	
 	public static final String SESSION_USER_ID = "userId";
 

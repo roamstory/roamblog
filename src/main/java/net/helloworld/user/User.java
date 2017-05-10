@@ -9,6 +9,9 @@ import org.hibernate.validator.constraints.Email;
 
 import com.google.gson.annotations.Expose;
 
+import net.helloworld.exception.PasswordMismatchException;
+import net.helloworld.exception.UserNotFoundException;
+
 public class User {
 	@Expose
 	@NotNull

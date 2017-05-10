@@ -1,4 +1,4 @@
-package net.helloworld.user;
+package net.helloworld.servlet;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -18,6 +18,8 @@ import javax.validation.Validator;
 import org.apache.commons.beanutils.BeanUtilsBean;
 
 import net.helloworld.support.HelloValidatorFactory;
+import net.helloworld.user.User;
+import net.helloworld.user.UserDAO;
 import net.helloworld.utils.SessionUtils;
 
 @WebServlet("/users/update")
@@ -28,7 +30,7 @@ public class UpdateUserServlet extends HttpServlet {
 		//로그인 세션여부
 		HttpSession session = request.getSession();
 		
-		String sessionUserId = SessionUtils.getStringValue(session, LoginServlet.SESSION_USER_ID);
+		String sessionUserId = SessionUtils.getStringValue(session, LoginUserServlet.SESSION_USER_ID);
 	    if (sessionUserId == null) {
 	    	response.sendRedirect("/");
 	    	return;

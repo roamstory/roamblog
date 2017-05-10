@@ -1,4 +1,4 @@
-package net.helloworld.user;
+package net.helloworld.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,7 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-@WebServlet("/api/users/find")
+import net.helloworld.user.User;
+import net.helloworld.user.UserDAO;
+
+@WebServlet("/users/api/find")
 public class ApiFindUserServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

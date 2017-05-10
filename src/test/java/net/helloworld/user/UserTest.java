@@ -6,9 +6,12 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
+import net.helloworld.exception.PasswordMismatchException;
+import net.helloworld.exception.UserNotFoundException;
+
 public class UserTest {
 
-	public static User TEST_USER = new User("UserId2", "password", "name", "email");
+	public static User TEST_USER = new User("UserId", "password", "name", "email");
 	private UserDAO userDAO;
 	
 	@Before

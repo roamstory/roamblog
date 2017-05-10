@@ -1,4 +1,4 @@
-package net.helloworld.user;
+package net.helloworld.exception;
 
 public class UserNotFoundException extends Exception{
 

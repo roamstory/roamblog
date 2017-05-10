@@ -1,4 +1,4 @@
-package net.helloworld.user;
+package net.helloworld.servlet;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -17,6 +17,8 @@ import javax.validation.Validator;
 import org.apache.commons.beanutils.BeanUtilsBean;
 
 import net.helloworld.support.HelloValidatorFactory;
+import net.helloworld.user.User;
+import net.helloworld.user.UserDAO;
 
 @WebServlet("/users/create")
 public class CreateUserServlet extends HttpServlet {

@@ -1,4 +1,4 @@
-package net.helloworld.user;
+package net.helloworld.servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -11,15 +11,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import net.helloworld.user.User;
+import net.helloworld.user.UserDAO;
 import net.helloworld.utils.SessionUtils;
 
-@WebServlet("/users/updateForm")
+@WebServlet("/users/form/update")
 public class UpdateFormUserServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		 HttpSession session = req.getSession();
-		 String userId = SessionUtils.getStringValue(session, LoginServlet.SESSION_USER_ID);
+		 String userId = SessionUtils.getStringValue(session, LoginUserServlet.SESSION_USER_ID);
 		 
 	     if (userId == null) {
 	    	 resp.sendRedirect("/");
