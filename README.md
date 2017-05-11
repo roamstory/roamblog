@@ -11,6 +11,14 @@ Servlet &amp; jsp
 - AWS(EC2)
 - git
 
+Tool
+ - eclipse
+ - Xshell 5 
+ - sourcetree
+ - github
+ - mysql workbench
+ - notepad++
+ 
 라이브러리
  - gson
  - junit (단위테스트)
