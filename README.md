@@ -31,3 +31,7 @@ AWS 환경 구축
  
 URL : http://ec2-52-78-18-177.ap-northeast-2.compute.amazonaws.com:8080/
  
+진행상황
+- servlet 구현
+- 리팩토링 진행중
+- contact 뷰단만 완성 
