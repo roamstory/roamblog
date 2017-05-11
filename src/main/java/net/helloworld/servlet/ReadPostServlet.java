@@ -16,39 +16,45 @@ import org.slf4j.LoggerFactory;
 
 import net.helloworld.posts.Post;
 import net.helloworld.posts.PostDAO;
-import net.helloworld.utils.SessionUtils;
+import net.helloworld.support.SessionUtils;
 
 @WebServlet("/users/post")
 public class ReadPostServlet extends HttpServlet {
-	
+
 	private static Logger logger = LoggerFactory.getLogger(ReadPostServlet.class);
-	
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-		 HttpSession session = req.getSession();
-		 String userId = SessionUtils.getStringValue(session, LoginUserServlet.SESSION_USER_ID);
-		 
-
-		 
-	     if (userId == null) {
-	    	 resp.sendRedirect("/");
-	    	 return;
-	     }
-	     
-	     PostDAO postDAO = new PostDAO();
-	     
-	     try {
-	    	 
-			Post post = postDAO.readPost(1);
-			req.setAttribute("post", post.getPost());
-			RequestDispatcher rd = req.getRequestDispatcher("/post.jsp");
+		
+		int index = Integer.parseInt(req.getParameter("index"));
+		
+		if (index == 0) {
+			RequestDispatcher rd = req.getRequestDispatcher("/nonepost.jsp");
 			rd.forward(req, resp);
-			
-		} catch (SQLException e) {
-			
-			e.printStackTrace();
+			return;
 		}
+		
+		logger.debug("index : {}",index);
+		HttpSession session = req.getSession();
+		String userId = SessionUtils.getStringValue(session, LoginUserServlet.SESSION_USER_ID);
+
+		if (userId == null) {
+			resp.sendRedirect("/");
+			return;
+		}
+
+		PostDAO postDAO = new PostDAO();
+
+		if (index == 0) {
+			RequestDispatcher rd = req.getRequestDispatcher("/nonepost.jsp");
+			rd.forward(req, resp);
+			return;
+		}
+		Post post = postDAO.readPost(index);
+		req.setAttribute("post", post);
+		logger.debug("post: {}", post);
+		RequestDispatcher rd = req.getRequestDispatcher("/post.jsp");
+		rd.forward(req, resp);
 	}
 
 }

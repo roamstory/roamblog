@@ -23,20 +23,20 @@ import net.helloworld.user.UserDAO;
 @WebServlet("/users/create")
 public class CreateUserServlet extends HttpServlet {
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		User user = new User();
 		try {
-			
+
 			BeanUtilsBean.getInstance().populate(user, request.getParameterMap());
-			
+
 		} catch (IllegalAccessException | InvocationTargetException e1) {
 			throw new ServletException();
 		}
-		
-		
+
 		Validator validator = HelloValidatorFactory.createValidator();
 		Set<ConstraintViolation<User>> constraintViolations = validator.validate(user);
-		
+
 		if (constraintViolations.size() > 0) {
 			request.setAttribute("isUpdate", false);
 			request.setAttribute("user", user);
@@ -44,20 +44,14 @@ public class CreateUserServlet extends HttpServlet {
 			forwardJSP(request, response, errorMessage);
 			return;
 		}
-		
-		
+
 		UserDAO userDAO = new UserDAO();
-		
-		try {
-			userDAO.addUser(user);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
+
+		userDAO.addUser(user);
+
 		response.sendRedirect("/");
 	}
 
-	
 	private void forwardJSP(HttpServletRequest request, HttpServletResponse response, String errorMessage)
 			throws ServletException, IOException {
 		request.setAttribute("errorMessage", errorMessage);
