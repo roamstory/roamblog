@@ -22,7 +22,7 @@
                         <a href="/users/about">About</a>
                     </li>
                     <li>
-                        <a href="/users/post">My Post</a>
+                        <a href="/users/post?index=0">My Post</a>
                     </li>
                     <li><a href="/users/form/contact">Contact</a></li>
                     <c:choose>

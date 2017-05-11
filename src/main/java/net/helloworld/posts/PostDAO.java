@@ -1,60 +1,28 @@
 package net.helloworld.posts;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import net.helloworld.db.JdbcTemplate;
+import net.helloworld.db.RowMapper;
 
 public class PostDAO {
+	public Post readPost(int index) {
 
-	public Connection getConnection() {
+		RowMapper<Post> rm = rs ->
+				new Post(
+						rs.getInt("index"), 
+						rs.getString("title"), 
+						rs.getString("posts"),
+						rs.getString("regdate"),
+						rs.getString("regwriter"),
+						rs.getString("strapline"));
 
-		String url = "jdbc:mysql://localhost:3306/roamstory_dev?useSSL=false&serverTimezone=UTC";
-		String id = "root";
-		String pw = "0330gogh";
+			
 
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			return DriverManager.getConnection(url, id, pw);
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			return null;
-		}
+		JdbcTemplate template = new JdbcTemplate();
+		String sql = "select * from roamstory_dev.posts where posts.index = ?";
 
-	}
-
-	public Post readPost(int index) throws SQLException {
-
-		String sql = "select * from POSTS where POSTS.index = ?";
-
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		try {
-			conn = getConnection();
-			pstmt = getConnection().prepareStatement(sql);
-			pstmt.setInt(1, index);
-
-			rs = pstmt.executeQuery();
-
-			if (!rs.next()) {
-				return null;
-			}
-			return new Post(rs.getInt("index"), rs.getString("title"), rs.getString("posts"));
-
-		} finally {
-			if (rs != null) {
-				rs.close();
-			}
-			if (pstmt != null) {
-				pstmt.close();
-			}
-
-			if (conn != null) {
-				conn.close();
-			}
-		}
+		return template.executeQuery(sql, rm, index);
 
 	}
+	
+	
 }

@@ -95,12 +95,7 @@ public class User {
 	public static boolean login(String userId, String password) throws UserNotFoundException, PasswordMismatchException {
 		UserDAO userDAO = new UserDAO();
 		User user = null;
-		try {
-			user = userDAO.findByUserId(userId);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		user = userDAO.findByUserId(userId);
 		
 		if (user == null) {
 			throw new UserNotFoundException();

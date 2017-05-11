@@ -29,7 +29,7 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-preview">
-                    <a href="/users/post">
+                    <a href="/users/post?index=1">
                         <h2 class="post-title">
                             WORK EXPERIENCE
                         </h2>
@@ -41,7 +41,7 @@
                 </div>
                 <hr>
                 <div class="post-preview">
-                    <a href="/post.jsp">
+                    <a href="/users/post?index=2">
                         <h2 class="post-title">
                                                      개발만 먼지 나도록 했다. 
                         </h2>
@@ -49,11 +49,11 @@
                                                        하지만 나에 대한 계발은 서툴렀고 이제서야 Step by Step 하고 있다.
                         </h3>
                     </a>
-                    <p class="post-meta">Posted by <a href="#">roamStory</a> on 4 24, 2017</p>
+                    <p class="post-meta">Posted by <a href="#">roamStory</a> on 4 25, 2017</p>
                 </div>
                 <hr>
                 <div class="post-preview">
-                    <a href="#">
+                    <a href="/users/post?index=3">
                         <h2 class="post-title">
                           	더 나은 개발 방향을 위하여...
                         </h2>
@@ -61,7 +61,7 @@
                           	 말하는데로...맘 먹은데로 ...
                         </h3>
                     </a>
-                    <p class="post-meta">Posted by <a href="#">roamstory</a> on 4 24, 2017</p>
+                    <p class="post-meta">Posted by <a href="#">roamstory</a> on 4 25, 2017</p>
                 </div>
                 <hr>
                 <!-- Pager

@@ -1,4 +1,4 @@
-package net.helloworld.utils;
+package net.helloworld.support;
 
 import javax.servlet.http.HttpSession;
 

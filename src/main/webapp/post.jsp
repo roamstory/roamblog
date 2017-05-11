@@ -19,10 +19,9 @@
 			<div class="row">
 				<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 					<div class="post-heading">
-						<h1>WORK EXPERIENCE</h1>
-						<h2 class="subheading">Problems look mighty small from 150
-							miles up</h2>
-						<span class="meta">Posted by <a href="#">roamStory</a> 4 24, 2017
+						<h1>${post.title }</h1>
+						<h5 class="subheading">${post.strapline }</h5>
+						<span class="meta">Posted by <a href="#">${post.regwriter }</a> ${post.regdate }
 						</span>
 					</div>
 				</div>
@@ -35,7 +34,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-					${post }
+					${post.posts }
 
 				</div>
 			</div>
