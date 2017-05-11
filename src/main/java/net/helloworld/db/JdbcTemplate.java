@@ -32,15 +32,10 @@ public class JdbcTemplate {
 
 	public <T> List<T> list(String sql, RowMapper<T> rm, PreparedStatementSetter pss) {
 
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		try {
-			conn = ConnectionManager.getConnection();
-			pstmt = conn.prepareStatement(sql);
+		try (Connection conn = ConnectionManager.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql);
+				ResultSet rs = pstmt.executeQuery();) {
 			pss.setParameter(pstmt);
-
-			rs = pstmt.executeQuery();
 
 			List<T> list = new ArrayList<T>();
 
@@ -52,22 +47,6 @@ public class JdbcTemplate {
 
 		} catch (SQLException e) {
 			throw new DataAccessException(e);
-		} finally {
-			try {
-				if (rs != null) {
-					rs.close();
-				}
-				if (pstmt != null) {
-					pstmt.close();
-				}
-
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				throw new DataAccessException(e);
-			}
-
 		}
 
 	}
@@ -78,27 +57,13 @@ public class JdbcTemplate {
 	}
 
 	public void executeUpdate(String sql, PreparedStatementSetter pss) {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		try {
-			conn = ConnectionManager.getConnection();
-			pstmt = conn.prepareStatement(sql);
+		
+		try (Connection conn = ConnectionManager.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql);){
 			pss.setParameter(pstmt);
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			throw new DataAccessException(e);
-		} finally {
-			try {
-				if (pstmt != null) {
-					pstmt.close();
-				}
-
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				throw new DataAccessException(e);
-			}
 		}
 
 	}
