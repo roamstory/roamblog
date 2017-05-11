@@ -43,3 +43,5 @@ URL : http://ec2-52-78-18-177.ap-northeast-2.compute.amazonaws.com:8080/
 - servlet 구현
 - 리팩토링 진행중
 - contact 뷰단만 완성 
+
+진행 상황 중 이슈 사항은 github이슈 탭에 입력하여 진행일정을 등록 후 해당 이슈 사항 수정 및 구현 후 커밋 시 이슈사항에 반영.
