@@ -8,7 +8,7 @@ Servlet &amp; jsp
 개발환경
 - Tomcat 9.0
 - JDK 1.8
-- AWS(EC2)
+- AWS(EC2) (우분투)
 - git
 
 Tool
