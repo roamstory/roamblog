@@ -8,9 +8,17 @@ Servlet &amp; jsp
 개발환경
 - Tomcat 9.0
 - JDK 1.8
-- AWS(EC2)
+- AWS(EC2) (우분투)
 - git
 
+Tool
+ - eclipse
+ - Xshell 5 
+ - sourcetree
+ - github
+ - mysql workbench
+ - notepad++
+ 
 라이브러리
  - gson
  - junit (단위테스트)
@@ -31,3 +39,7 @@ AWS 환경 구축
  
 URL : http://ec2-52-78-18-177.ap-northeast-2.compute.amazonaws.com:8080/
  
+진행상황
+- servlet 구현
+- 리팩토링 진행중
+- contact 뷰단만 완성 
